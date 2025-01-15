@@ -1,10 +1,17 @@
 class HDBSCAN {
-  constructor(X, mpts) {
-    this.X = X; // The dataset of points; array of objects {id: string, embeddings: number[]}
-    this.allNearestNeighbors = new Map(); // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
-    this.mpts = mpts; // The minimum points to define a core point
-    this.coreDistances = new Map(); // map: id to core distances
-    this.mrg = new Map(); // mutual reachability graph as an adjacency list
+  X: { id: string; embeddings: number[] }[]; // The dataset of points
+  allNearestNeighbors: Map<string, Map<string, number>>; // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
+  mpts: number; // The minimum points to define a core point
+  coreDistances: Map<string, number>; // Map: id to core distances
+  mrg: Map<string, Map<string, number>>; // Mutual reachability graph
+  mstEdges: { from: string; to: string; weight: number }[]; // mutual reachability graph as an adjacency list
+
+  constructor(X: { id: string; embeddings: number[] }[], mpts: number) {
+    this.X = X;
+    this.allNearestNeighbors = new Map();
+    this.mpts = mpts;
+    this.coreDistances = new Map();
+    this.mrg = new Map();
     this.mstEdges = [];
   }
 
@@ -26,7 +33,7 @@ class HDBSCAN {
     }
   }
 
-  static cosineDistance(pointA, pointB) {
+  static cosineDistance(pointA: number[], pointB: number[]): number {
     if (pointA.length !== pointB.length) {
       throw new Error("unequal dimension in input data");
     }
@@ -45,8 +52,7 @@ class HDBSCAN {
     return 1 - similarity;
   }
 
-  _computeAllNearestNeighbors() {
-    // console.log("in computeAllNearestNeighbors");
+  private _computeAllNearestNeighbors() {
     this.X.forEach((from, fromIndex) => {
       this.allNearestNeighbors.set(from.id, new Map());
       this.X.forEach((to, toIndex) => {
@@ -56,31 +62,29 @@ class HDBSCAN {
           if (this.allNearestNeighbors.get(to.id)?.has(from.id)) {
             // already calculated, just need to set the other direction
             this.allNearestNeighbors
-              .get(from.id)
-              .set(to.id, this.allNearestNeighbors.get(to.id).get(from.id));
+              .get(from.id)!
+              .set(to.id, this.allNearestNeighbors.get(to.id)!.get(from.id)!);
           } else {
             // Calculate the distance from the current point to all other points
             const distance = HDBSCAN.cosineDistance(
               from.embeddings,
               to.embeddings
             );
-            this.allNearestNeighbors.get(from.id).set(to.id, distance);
+            this.allNearestNeighbors.get(from.id)!.set(to.id, distance);
           }
         }
       });
     });
   }
 
-  _computeCoreDistances() {
+  private _computeCoreDistances() {
     // Iterate over all points in the dataset
     this.allNearestNeighbors.forEach((edgesAtPoint, id) => {
-      let distances = [];
-      edgesAtPoint.forEach((distance) => {
-        distances.push(distance);
-      });
+      const distances = Array.from(edgesAtPoint.values());
 
       // Sort the array of distances to find the mpts-th smallest distance
-      distances.sort((a, b) => a - b); // TODO: potentially optimize with quickselect
+      // TODO: potentially optimize with quickselect
+      distances.sort((a, b) => a - b);
 
       if (distances.length < this.mpts) {
         // error check if mpts is greater than the number of points
@@ -94,7 +98,7 @@ class HDBSCAN {
     });
   }
 
-  _constructMRG() {
+  private _constructMRG() {
     // Prepare graph nodes
     this.X.forEach((point) => {
       this.mrg.set(point.id, new Map()); // Each point has a map to others with distances
@@ -104,25 +108,27 @@ class HDBSCAN {
     this.allNearestNeighbors.forEach((edgesAtFrom, fromId) => {
       edgesAtFrom.forEach((distanceTo, toId) => {
         const mutualReachabilityDistance = Math.max(
-          this.coreDistances.get(fromId),
-          this.coreDistances.get(toId),
+          this.coreDistances.get(fromId)!,
+          this.coreDistances.get(toId)!,
           distanceTo
         );
 
-        this.mrg.get(fromId).set(toId, mutualReachabilityDistance);
+        this.mrg.get(fromId)!.set(toId, mutualReachabilityDistance);
         //don't need to set the other direction since we're iterating over all edges so the other direction will be added
       });
     });
   }
 
-  _computeMST() {
+  private _computeMST() {
     // Start from the first point (you could start from any)
     const startId = this.X[0].id;
-    const pq = new PriorityQueue((a, b) => a.weight < b.weight); // Min-Heap priority queue
+    const pq = new PriorityQueue<{ from: string; to: string; weight: number }>(
+      (a, b) => a.weight < b.weight
+    ); // Min-Heap priority queue
 
     // Initialize the priority queue with all edges from the starting vertex
     const edgesFromStart = this.mrg.get(startId);
-    edgesFromStart.forEach((weight, id) => {
+    edgesFromStart!.forEach((weight, id) => {
       pq.enqueue({ from: startId, to: id, weight });
     });
 
@@ -132,7 +138,11 @@ class HDBSCAN {
 
     // Building the MST
     while (!pq.isEmpty()) {
-      const { from, to, weight } = pq.dequeue();
+      const result = pq.dequeue();
+      if (result === null) {
+        throw new Error("Priority queue dequeued null value");
+      }
+      const { from, to, weight } = result;
 
       // Check if the 'to' vertex is already included in the MST
       if (!inMST.has(to)) {
@@ -141,11 +151,9 @@ class HDBSCAN {
         //add edge to mstEdges
         this.mstEdges.push({ from, to, weight });
 
-        //instead of mst adjacency list, let's use an array that keeps track of the edges this.mstEdges (since it's nondirected graph)
-
         // Add all edges from the 'to' vertex to the priority queue
         const edgesFromTo = this.mrg.get(to);
-        edgesFromTo.forEach((nextWeight, nextId) => {
+        edgesFromTo!.forEach((nextWeight, nextId) => {
           if (!inMST.has(nextId)) {
             pq.enqueue({ from: to, to: nextId, weight: nextWeight });
           }
@@ -155,22 +163,21 @@ class HDBSCAN {
 
     //sort the mstEdges by weight in ascending order
     this.mstEdges.sort((a, b) => a.weight - b.weight);
-    // console.log("mstEdges", this.mstEdges);
   }
 
-  _extractHDBSCANHierarchy() {
+  private _extractHDBSCANHierarchy() {
     // Initialize the union-find structure
     const uf = new UnionFind(this.X.map((point) => point.id));
 
     // Array to store the hierarchy steps, where each element is an object:
-    // {
-    // 	childrenClusters: [two children index in the hierarchy (number)],
-    // 	elements: [ids] (we also get the size of the cluster here),
-    // 	lambdaPs: [],
-    // 	lambdaMin: number,
-    // 	lambdaMax: number,
-    // }
-    const hierarchy = [];
+    const hierarchy: {
+      childrenClusters: number[] | null; // [two children index in the hierarchy (number)]
+      elements: string[]; // [ids] (we also get the size of the cluster here),
+      lambdaPs: number[];
+      lambdaMin: number | null;
+      lambdaMax: number;
+    }[] = [];
+
     // map from point ID to its current highest index in hierarchy:
     const pointToHierarchyIndex = new Map();
 
@@ -248,7 +255,7 @@ class HDBSCAN {
           updateCluster.lambdaPs.push(1 / weight);
         }
       } else {
-        // console.log("idk what happened here");
+        throw new Error("Unexpected case in HDBSCAN hierarchy construction");
       }
       currentGroups.set(newRoot, newElements);
       currentGroups.delete(newRoot === rootFrom ? rootTo : rootFrom); // merged into newRoot, so the merged in root no longer considered
@@ -261,7 +268,8 @@ class HDBSCAN {
     const stabilities = new Array(hierarchy.length).fill(0); // index is the index in the hierarchy array, value is the stability
     for (let i = 0; i < hierarchy.length; i++) {
       for (let j = 0; j < hierarchy[i].lambdaPs.length; j++) {
-        stabilities[i] += hierarchy[i].lambdaPs[j] - hierarchy[i].lambdaMin;
+        stabilities[i] +=
+          hierarchy[i].lambdaPs[j] - (hierarchy[i].lambdaMin ?? 0);
       }
     }
 
@@ -279,8 +287,8 @@ class HDBSCAN {
         s_hat[i] = stabilities[i];
         isSelected[i] = true;
       } else {
-        const i_left_child_index = hierarchy[i].childrenClusters[0];
-        const i_right_child_index = hierarchy[i].childrenClusters[1];
+        const i_left_child_index = hierarchy[i].childrenClusters![0]; // since we remove the root, this must be defined
+        const i_right_child_index = hierarchy[i].childrenClusters![1];
         const i_left_child = s_hat[i_left_child_index];
         const i_right_child = s_hat[i_right_child_index];
 
@@ -298,8 +306,9 @@ class HDBSCAN {
       }
     }
 
-    const clusters = []; // list of clusters, where each cluster is a list of ids
-    const outliers = []; // list of outlier ids
+    const clusters: Array<Array<string>> = []; // Each cluster is an array of string ids (string[][])
+    const outliers: Array<string> = []; // List of outlier ids (string[])
+
     //finally, loop through the hierarchy to find the clusters that we end up selecting!
     for (let i = 0; i < hierarchy.length; i++) {
       if (isSelected[i]) {
@@ -320,35 +329,38 @@ class HDBSCAN {
   }
 }
 
-class PriorityQueue {
-  constructor(comparator = (a, b) => a < b) {
+class PriorityQueue<T> {
+  private _heap: T[];
+  private _comparator: (a: T, b: T) => boolean;
+
+  constructor(comparator: (a: T, b: T) => boolean) {
     this._heap = [];
     this._comparator = comparator;
   }
 
-  enqueue(value) {
+  enqueue(value: T): void {
     this._heap.push(value);
     this._siftUp();
   }
 
-  dequeue() {
+  dequeue(): T | null {
     if (this.isEmpty()) {
       return null;
     }
     const poppedValue = this._heap[0];
     const bottomValue = this._heap.pop();
-    if (this._heap.length > 0) {
+    if (this._heap.length > 0 && bottomValue !== undefined) {
       this._heap[0] = bottomValue;
       this._siftDown();
     }
     return poppedValue;
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this._heap.length === 0;
   }
 
-  _siftUp() {
+  private _siftUp(): void {
     let nodeIdx = this._heap.length - 1;
     while (
       nodeIdx > 0 &&
@@ -362,7 +374,7 @@ class PriorityQueue {
     }
   }
 
-  _siftDown() {
+  private _siftDown(): void {
     let nodeIdx = 0;
     while (
       (2 * nodeIdx + 1 < this._heap.length &&
@@ -383,43 +395,49 @@ class PriorityQueue {
     }
   }
 
-  _swap(i, j) {
+  private _swap(i: number, j: number): void {
     [this._heap[i], this._heap[j]] = [this._heap[j], this._heap[i]];
   }
 }
 
 //extended union-find data structure
-class UnionFind {
-  constructor(elements) {
-    this.parent = {};
-    this.rank = {};
+class UnionFind<T> {
+  private parent: Map<T, T>;
+  private rank: Map<T, number>;
+
+  constructor(elements: T[]) {
+    this.parent = new Map();
+    this.rank = new Map();
 
     elements.forEach((e) => {
-      this.parent[e] = e; // Each element is the parent of itself
-      this.rank[e] = 0; // Rank of each element is 0 initially
+      this.parent.set(e, e); // Each element is the parent of itself
+      this.rank.set(e, 0); // Rank of each element is 0 initially
     });
   }
 
-  find(item) {
-    if (this.parent[item] !== item) {
-      this.parent[item] = this.find(this.parent[item]);
+  find(item: T): T {
+    if (this.parent.get(item)! !== item) {
+      this.parent.set(item, this.find(this.parent.get(item)!));
     }
-    return this.parent[item];
+    return this.parent.get(item)!;
   }
 
-  union(item1, item2) {
+  union(item1: T, item2: T): void {
     const root1 = this.find(item1);
     const root2 = this.find(item2);
 
     if (root1 === root2) return;
 
-    if (this.rank[root1] > this.rank[root2]) {
-      this.parent[root2] = root1;
-    } else if (this.rank[root1] < this.rank[root2]) {
-      this.parent[root1] = root2;
+    const rank1 = this.rank.get(root1)!;
+    const rank2 = this.rank.get(root2)!;
+
+    if (rank1 > rank2) {
+      this.parent.set(root2, root1);
+    } else if (rank1 < rank2) {
+      this.parent.set(root1, root2);
     } else {
-      this.parent[root2] = root1;
-      this.rank[root1] += 1;
+      this.parent.set(root2, root1);
+      this.rank.set(root1, rank1 + 1);
     }
   }
 }
