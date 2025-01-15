@@ -1,18 +1,29 @@
-class HDBSCAN {
-  X: { id: string; embeddings: number[] }[]; // The dataset of points
-  allNearestNeighbors: Map<string, Map<string, number>>; // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
-  mpts: number; // The minimum points to define a core point
-  coreDistances: Map<string, number>; // Map: id to core distances
-  mrg: Map<string, Map<string, number>>; // Mutual reachability graph
-  mstEdges: { from: string; to: string; weight: number }[]; // mutual reachability graph as an adjacency list
+type DistanceFunction = (pointA: number[], pointB: number[]) => number;
 
-  constructor(X: { id: string; embeddings: number[] }[], mpts: number) {
+class HDBSCAN {
+  private X: { id: string; vector: number[] }[]; // The dataset of points
+  private allNearestNeighbors: Map<string, Map<string, number>>; // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
+  private mpts: number; // The minimum points to define a core point
+  private coreDistances: Map<string, number>; // Map: id to core distances
+  private mrg: Map<string, Map<string, number>>; // Mutual reachability graph
+  private mstEdges: { from: string; to: string; weight: number }[]; // mutual reachability graph as an adjacency list
+  private distanceFunction: DistanceFunction;
+
+  constructor(
+    X: {
+      id: string;
+      vector: number[];
+    }[],
+    mpts: number,
+    distanceFunction?: DistanceFunction
+  ) {
     this.X = X;
     this.allNearestNeighbors = new Map();
     this.mpts = mpts;
     this.coreDistances = new Map();
     this.mrg = new Map();
     this.mstEdges = [];
+    this.distanceFunction = distanceFunction ?? HDBSCAN.cosineDistance;
   }
 
   run() {
@@ -31,6 +42,29 @@ class HDBSCAN {
       // return all the points as outliers
       return { clusters: [], outliers: this.X.map((point) => point.id) };
     }
+  }
+
+  static euclideanDistance(pointA: number[], pointB: number[]): number {
+    if (pointA.length !== pointB.length) {
+      throw new Error("unequal dimension in input data");
+    }
+    let sum = 0;
+    for (let i = 0; i < pointA.length; i++) {
+      const diff = pointA[i] - pointB[i];
+      sum += diff * diff;
+    }
+    return Math.sqrt(sum);
+  }
+
+  static manhattanDistance(pointA: number[], pointB: number[]): number {
+    if (pointA.length !== pointB.length) {
+      throw new Error("unequal dimension in input data");
+    }
+    let sum = 0;
+    for (let i = 0; i < pointA.length; i++) {
+      sum += Math.abs(pointA[i] - pointB[i]);
+    }
+    return sum;
   }
 
   static cosineDistance(pointA: number[], pointB: number[]): number {
@@ -66,10 +100,7 @@ class HDBSCAN {
               .set(to.id, this.allNearestNeighbors.get(to.id)!.get(from.id)!);
           } else {
             // Calculate the distance from the current point to all other points
-            const distance = HDBSCAN.cosineDistance(
-              from.embeddings,
-              to.embeddings
-            );
+            const distance = this.distanceFunction(from.vector, to.vector);
             this.allNearestNeighbors.get(from.id)!.set(to.id, distance);
           }
         }
