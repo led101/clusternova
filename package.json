@@ -1,0 +1,31 @@
+{
+  "name": "clusternova",
+  "version": "1.0.0",
+  "description": "HDBSCAN clustering algorithm implementation in TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/led101/clusternova.git"
+  },
+  "keywords": [
+    "hdbscan",
+    "clustering",
+    "machine-learning",
+    "typescript"
+  ],
+  "author": "Kevin Ma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/led101/clusternova/issues"
+  },
+  "homepage": "https://github.com/led101/clusternova#readme"
+}
