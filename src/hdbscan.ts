@@ -23,7 +23,7 @@ class HDBSCAN {
     this.coreDistances = new Map();
     this.mrg = new Map();
     this.mstEdges = [];
-    this.distanceFunction = distanceFunction ?? HDBSCAN.cosineDistance;
+    this.distanceFunction = distanceFunction ?? HDBSCAN.cosine;
   }
 
   run() {
@@ -44,7 +44,7 @@ class HDBSCAN {
     }
   }
 
-  static euclideanDistance(pointA: number[], pointB: number[]): number {
+  static euclidean(pointA: number[], pointB: number[]): number {
     if (pointA.length !== pointB.length) {
       throw new Error("unequal dimension in input data");
     }
@@ -56,7 +56,7 @@ class HDBSCAN {
     return Math.sqrt(sum);
   }
 
-  static manhattanDistance(pointA: number[], pointB: number[]): number {
+  static manhattan(pointA: number[], pointB: number[]): number {
     if (pointA.length !== pointB.length) {
       throw new Error("unequal dimension in input data");
     }
@@ -67,7 +67,7 @@ class HDBSCAN {
     return sum;
   }
 
-  static cosineDistance(pointA: number[], pointB: number[]): number {
+  static cosine(pointA: number[], pointB: number[]): number {
     if (pointA.length !== pointB.length) {
       throw new Error("unequal dimension in input data");
     }
@@ -276,8 +276,15 @@ class HDBSCAN {
         // update the root of the new cluster in the pointToHierarchyIndex map
         pointToHierarchyIndex.set(newRoot, hierarchy.length - 1);
       } else if (newSize >= this.mpts) {
-        // (implicitly) merge a noise group with a cluster so a cluster grows bigger
+        // merge a noise group with a cluster so a cluster grows bigger
 
+        if (pointToHierarchyIndex.get(newRoot) === undefined) {
+          // this means union find for some reason made the noise group the new root, so we just assign the other group's hierarchy index
+          const existingIndex =
+            pointToHierarchyIndex.get(rootFrom) ??
+            pointToHierarchyIndex.get(rootTo);
+          pointToHierarchyIndex.set(newRoot, existingIndex);
+        }
         // find the existing cluster and modify it:
         const updateCluster = hierarchy[pointToHierarchyIndex.get(newRoot)];
         updateCluster.elements = newElements;
@@ -285,8 +292,6 @@ class HDBSCAN {
         for (let i = 0; i < mergeSize; i++) {
           updateCluster.lambdaPs.push(1 / weight);
         }
-      } else {
-        throw new Error("Unexpected case in HDBSCAN hierarchy construction");
       }
       currentGroups.set(newRoot, newElements);
       currentGroups.delete(newRoot === rootFrom ? rootTo : rootFrom); // merged into newRoot, so the merged in root no longer considered
