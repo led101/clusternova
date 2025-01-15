@@ -1,4 +1,4 @@
-type DistanceFunction = (pointA: number[], pointB: number[]) => number;
+export type DistanceFunction = (pointA: number[], pointB: number[]) => number;
 
 class HDBSCAN {
   private X: { id: string; vector: number[] }[]; // The dataset of points
