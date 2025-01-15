@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from hdbscan import HDBSCAN
 import numpy as np
 from flask_cors import CORS
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -13,12 +14,17 @@ def cluster():
     data = request.json
     points = np.array([point['vector'] for point in data['points']])
     min_points = data['minPoints']
-
     distance_metric = data.get('distanceMetric', 'euclidean')  # Default to 'euclidean' if not provided
 
-    
-    clusterer = HDBSCAN(min_cluster_size=min_points, min_samples=min_points, metric=distance_metric)
-    cluster_labels = clusterer.fit_predict(points)
+    if distance_metric == 'cosine':
+        # Convert points to distance matrix using cosine distance
+        similarity_matrix = cosine_similarity(points)
+        distance_matrix = 1 - similarity_matrix
+        clusterer = HDBSCAN(min_cluster_size=min_points, min_samples=min_points, metric='precomputed')
+        cluster_labels = clusterer.fit_predict(distance_matrix)
+    else: 
+        clusterer = HDBSCAN(min_cluster_size=min_points, min_samples=min_points, metric=distance_metric)
+        cluster_labels = clusterer.fit_predict(points)
     
     # Convert labels to same format as your TS implementation
     clusters = {}

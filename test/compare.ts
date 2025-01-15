@@ -237,7 +237,7 @@ const testCases = [
 async function runTests() {
   for (const testCase of testCases) {
     console.log(`\nRunning test: ${testCase.name}`);
-    await compareWithScikit(testCase.points, testCase.minPoints, "euclidean");
+    await compareWithScikit(testCase.points, testCase.minPoints, "cosine");
   }
 }
 
