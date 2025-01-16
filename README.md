@@ -8,7 +8,7 @@ This TypeScript implementation easily brings clustering to your JavaScript ecosy
 
 - 📱 **Social Media Intelligence**: Surface trending topics from millions of posts in real-time
 - 🎯 **Customer Insights**: Transform raw feedback into actionable patterns
-- 🤖 **AI/ML Pipelines**: Cluster high-dimensional embeddings with remarkable accuracy
+- 🤖 **AI/ML Pipelines**: Cluster high-dimensional embeddings
 - 📊 **Real-time Analytics**: Process streaming data to detect emerging patterns
 - 🔍 **Anomaly Detection**: Automatically identify outliers and unusual behaviors
 
