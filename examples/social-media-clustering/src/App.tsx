@@ -361,7 +361,7 @@ function App() {
       </div>
 
       {/* Display Clusters */}
-      <div className="space-y-4">
+      <div className="space-y-4 text-left">
         {clusters.length > 0 ? (
           <>
             <h2 className="text-2xl font-bold mt-8 mb-4">Clustering Results</h2>

@@ -85,7 +85,7 @@ export default function TweetModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
+    <div className="fixed text-left inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
       <div
         ref={modalRef}
         className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-xl"
@@ -161,32 +161,34 @@ export default function TweetModal({
                   {isEditing ? (
                     <>
                       <button
-                        onClick={() => saveTweet(tweet.id)}
-                        className="text-sm px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
-                      >
-                        Save
-                      </button>
-                      <button
                         onClick={() => cancelEditing(tweet.id)}
                         className="text-sm px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
                       >
                         Cancel
                       </button>
+                      <button
+                        onClick={() => saveTweet(tweet.id)}
+                        className="text-sm px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+                      >
+                        Save
+                      </button>
                     </>
                   ) : (
-                    <button
-                      onClick={() => startEditing(tweet)}
-                      className="text-sm px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-                    >
-                      Edit
-                    </button>
+                    <>
+                      <button
+                        onClick={() => startEditing(tweet)}
+                        className="text-sm px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleRemoveTweet(tweet.id)}
+                        className="text-sm px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </>
                   )}
-                  <button
-                    onClick={() => handleRemoveTweet(tweet.id)}
-                    className="text-sm px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-                  >
-                    Remove
-                  </button>
                 </div>
               </div>
             );
