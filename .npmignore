@@ -4,3 +4,4 @@ examples/
 .gitignore
 .npmignore
 tsconfig.json
+assets/

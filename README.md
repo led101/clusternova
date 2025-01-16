@@ -1,8 +1,12 @@
-# Clusternova: HDBSCAN TypeScript Implementation
+# Clusternova 🚀
+
+### Simple data clustering library in TS
+
+![Clusternova Image](https://raw.githubusercontent.com/led101/clusternova/assets/clusternova.png)
 
 **Discover Hidden Patterns in Your Data**
 
-Just drop millions of social media posts and instantly surface trending topics. Feed in your support tickets and instantly have related issues be clustered together.
+Drop millions of recent social media posts and instantly surface trending topics. Feed in your support tickets and instantly have related issues be clustered together.
 
 This TypeScript implementation easily brings clustering to your JavaScript ecosystem, whether you're running in Node.js (or another backend JS runtime) or directly in the browser. Built for real-world applications:
 
