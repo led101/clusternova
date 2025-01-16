@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import HDBSCAN, { findCentralElements, cosine } from "clusternova";
 import TweetModal from "./components/TweetModal";
+import sampleTweets from "./sampleTweets.json";
 
 // Types
 interface Tweet {
@@ -19,208 +20,7 @@ interface Cluster {
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [apiKey, setApiKey] = useState<string>("");
-  const [tweets, setTweets] = useState<Tweet[]>([
-    {
-      id: "1",
-      text: "I absolutely love programming in TypeScript! The type safety is amazing.",
-    },
-    {
-      id: "2",
-      text: "Just had the best pizza in Naples. Italian food is unbeatable!",
-    },
-    {
-      id: "3",
-      text: "TypeScript's compiler caught another bug before it hit production. So grateful!",
-    },
-    {
-      id: "4",
-      text: "Made homemade pasta today with my new pasta maker. The texture was perfect!",
-    },
-    {
-      id: "5",
-      text: "React 19 is going to be a game changer. Can't wait for all the new features!",
-    },
-    {
-      id: "6",
-      text: "Just tried a new Italian restaurant downtown. Their carbonara is to die for!",
-    },
-    {
-      id: "7",
-      text: "Frontend development has come so far. Modern frameworks make everything easier.",
-    },
-    {
-      id: "8",
-      text: "Learning TypeScript was the best decision I made for my coding career.",
-    },
-    {
-      id: "9",
-      text: "Nothing beats a wood-fired margherita pizza with fresh basil.",
-    },
-    {
-      id: "10",
-      text: "React's hooks have completely changed how I think about state management.",
-    },
-    {
-      id: "11",
-      text: "Finally, red flag warnings lifted in LA! Our firefighters can better contain these massive fires now. 🙏 #LAFires",
-    },
-    {
-      id: "12",
-      text: "88,000 people still evacuated in LA County. Hoping everyone stays safe and can return home soon. #PalisadesFire #EatonFire",
-    },
-    {
-      id: "13",
-      text: "The air quality is terrible in LA right now. Wearing my N95 mask whenever I go outside. Take care everyone! 😷",
-    },
-    {
-      id: "14",
-      text: "Amazing to see the community coming together to help fire evacuees. Drop off supplies at local centers if you can help! #LAStrong",
-    },
-    {
-      id: "15",
-      text: "38,600 acres burned so far in LA County. The scale of these fires is just devastating. 💔 #CaliforniaWildfires",
-    },
-    {
-      id: "16",
-      text: "Grateful for our firefighters making progress on containment. Lighter winds are finally giving them a break. #ThankYouFirefighters",
-    },
-    {
-      id: "17",
-      text: "If you're returning home after evacuation, remember to check for hazards and follow official guidance. Stay safe! #LAFires",
-    },
-    {
-      id: "18",
-      text: "The smoke from these fires is no joke. Health officials say to avoid outdoor activities if possible. #LAAirQuality",
-    },
-    {
-      id: "19",
-      text: "Palisades and Eaton fires still burning but containment growing. Progress feels slow but steady. #LosAngelesFires",
-    },
-    {
-      id: "20",
-      text: "84,800 people under evacuation warnings on top of those already evacuated. This is unprecedented. #LAFires",
-    },
-    {
-      id: "21",
-      text: "Just donated supplies for fire evacuees. The relief centers need water, food, and toiletries if anyone can help! #LACommunity",
-    },
-    {
-      id: "22",
-      text: "These fires are affecting air quality all across LA County. Remember to keep windows closed and use air purifiers if you have them.",
-    },
-    {
-      id: "23",
-      text: "Seeing the fire maps is sobering. Both Palisades and Eaton fires have caused so much destruction. Stay strong LA! 💪",
-    },
-    {
-      id: "24",
-      text: "Important: N95 masks recommended for anyone who must be outside in affected areas. Regular masks won't protect from smoke! #LAFires",
-    },
-    {
-      id: "25",
-      text: "The outpouring of support for evacuees has been incredible. This is what community looks like! #LAStrong #CaliforniaWildfires",
-    },
-    {
-      id: "26",
-      text: "Red flag warnings finally expired! This should help firefighters get better control of the situation. 🚒",
-    },
-    {
-      id: "27",
-      text: "If you're under evacuation warning, please stay prepared and keep important documents ready. Better safe than sorry! #LASafety",
-    },
-    {
-      id: "28",
-      text: "The smoke is making everything look apocalyptic in LA today. Stay inside if you can everyone. #LAFires #AirQuality",
-    },
-    {
-      id: "29",
-      text: "Firefighters are making progress on containment lines thanks to calmer winds. Every bit of good news counts! #PalisadesFire",
-    },
-    {
-      id: "30",
-      text: "Remember to check official sources for evacuation updates and air quality readings. Stay informed and stay safe LA! #LAFires",
-    },
-    {
-      id: "31",
-      text: "ChatGPT just helped me debug a tricky coding issue in minutes. AI pair programming is the future! 🤖💻",
-    },
-    {
-      id: "32",
-      text: "The latest AI image generation models are mind-blowing. The quality keeps getting better every month! #AIart",
-    },
-    {
-      id: "33",
-      text: "Interesting debate about AI safety today. We need to think carefully about alignment as these systems get more powerful.",
-    },
-    {
-      id: "34",
-      text: "Using AI to help with medical diagnoses is showing really promising results. Could revolutionize healthcare! #AIinMedicine",
-    },
-    {
-      id: "35",
-      text: "Just tried the new GPT-4 API. The reasoning capabilities are significantly improved from GPT-3.5! #AI #MachineLearning",
-    },
-    {
-      id: "36",
-      text: "AI is transforming scientific research. The speed of discovery in fields like protein folding is unprecedented. #AIScience",
-    },
-    {
-      id: "37",
-      text: "Important to remember that AI models can hallucinate. Always verify critical information from reliable sources! #AILimitations",
-    },
-    {
-      id: "38",
-      text: "The democratization of AI tools is amazing. Small businesses can now leverage AI capabilities that were once enterprise-only.",
-    },
-    {
-      id: "39",
-      text: "Fascinating paper on large language models' emergent abilities. These systems keep surprising us! #AIResearch",
-    },
-    {
-      id: "40",
-      text: "AI ethics should be a priority as we develop more powerful systems. We need robust governance frameworks. #AIEthics",
-    },
-    {
-      id: "41",
-      text: "Using AI for climate modeling is helping us better understand and predict climate change patterns. #AI #ClimateAction",
-    },
-    {
-      id: "42",
-      text: "The new multimodal AI models are incredible - they can understand text, images, and audio together seamlessly! #AIProgress",
-    },
-    {
-      id: "43",
-      text: "AI-powered code completion has become indispensable in my development workflow. Huge productivity boost! #CodingWithAI",
-    },
-    {
-      id: "44",
-      text: "Concerned about AI's impact on jobs. We need to focus on reskilling and adaptation strategies. #AIandWork",
-    },
-    {
-      id: "45",
-      text: "The combination of AI and robotics is opening up amazing possibilities in manufacturing and automation. #AIRobotics",
-    },
-    {
-      id: "46",
-      text: "AI models are getting more efficient - same capabilities with much lower computational costs. Great for sustainability! #GreenAI",
-    },
-    {
-      id: "47",
-      text: "Impressive how AI is helping with language translation. Breaking down communication barriers globally! #AITranslation",
-    },
-    {
-      id: "48",
-      text: "The pace of AI advancement is incredible. What seemed impossible a year ago is now readily available. #AIPropgress",
-    },
-    {
-      id: "49",
-      text: "AI-generated music is getting surprisingly good. Interesting implications for the creative industry! #AICreativity",
-    },
-    {
-      id: "50",
-      text: "We need more diversity in AI development teams to ensure these systems work well for everyone. #AIInclusion",
-    },
-  ]);
+  const [tweets, setTweets] = useState<Tweet[]>(sampleTweets);
   const [clusters, setClusters] = useState<Cluster[]>([]);
   const [outliers, setOutliers] = useState<Tweet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -314,10 +114,11 @@ function App() {
           return { tweets: clusterTweets, summary, centralTweets };
         })
       );
-      setClusters(processedClusters);
+      // Sort clusters by size (biggest first)
+      setClusters(
+        processedClusters.sort((a, b) => b.tweets.length - a.tweets.length)
+      );
       setOutliers(outliers);
-
-      setClusters(processedClusters);
     } catch (error) {
       console.error("Clustering error:", error);
       alert(

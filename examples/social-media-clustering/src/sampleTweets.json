@@ -1,0 +1,762 @@
+[
+    {
+        "id": "1",
+        "text": "I absolutely love programming in TypeScript! The type safety is amazing."
+    },
+    {
+        "id": "2",
+        "text": "Just had the best pizza in Naples. Italian food is unbeatable!"
+    },
+    {
+        "id": "3",
+        "text": "TypeScript's compiler caught another bug before it hit production. So grateful!"
+    },
+    {
+        "id": "4",
+        "text": "Made homemade pasta today with my new pasta maker. The texture was perfect!"
+    },
+    {
+        "id": "5",
+        "text": "React 19 is going to be a game changer. Can't wait for all the new features!"
+    },
+    {
+        "id": "6",
+        "text": "Just tried a new Italian restaurant downtown. Their carbonara is to die for!"
+    },
+    {
+        "id": "7",
+        "text": "Frontend development has come so far. Modern frameworks make everything easier."
+    },
+    {
+        "id": "8",
+        "text": "Learning TypeScript was the best decision I made for my coding career."
+    },
+    {
+        "id": "9",
+        "text": "Nothing beats a wood-fired margherita pizza with fresh basil."
+    },
+    {
+        "id": "10",
+        "text": "React's hooks have completely changed how I think about state management."
+    },
+    {
+        "id": "11",
+        "text": "Finally, red flag warnings lifted in LA! Our firefighters can better contain these massive fires now. 🙏 #LAFires"
+    },
+    {
+        "id": "12",
+        "text": "88,000 people still evacuated in LA County. Hoping everyone stays safe and can return home soon. #PalisadesFire #EatonFire"
+    },
+    {
+        "id": "13",
+        "text": "The air quality is terrible in LA right now. Wearing my N95 mask whenever I go outside. Take care everyone! 😷"
+    },
+    {
+        "id": "14",
+        "text": "Amazing to see the community coming together to help fire evacuees. Drop off supplies at local centers if you can help! #LAStrong"
+    },
+    {
+        "id": "15",
+        "text": "38,600 acres burned so far in LA County. The scale of these fires is just devastating. 💔 #CaliforniaWildfires"
+    },
+    {
+        "id": "16",
+        "text": "Grateful for our firefighters making progress on containment. Lighter winds are finally giving them a break. #ThankYouFirefighters"
+    },
+    {
+        "id": "17",
+        "text": "If you're returning home after evacuation, remember to check for hazards and follow official guidance. Stay safe! #LAFires"
+    },
+    {
+        "id": "18",
+        "text": "The smoke from these fires is no joke. Health officials say to avoid outdoor activities if possible. #LAAirQuality"
+    },
+    {
+        "id": "19",
+        "text": "Palisades and Eaton fires still burning but containment growing. Progress feels slow but steady. #LosAngelesFires"
+    },
+    {
+        "id": "20",
+        "text": "84,800 people under evacuation warnings on top of those already evacuated. This is unprecedented. #LAFires"
+    },
+    {
+        "id": "21",
+        "text": "Just donated supplies for fire evacuees. The relief centers need water, food, and toiletries if anyone can help! #LACommunity"
+    },
+    {
+        "id": "22",
+        "text": "These fires are affecting air quality all across LA County. Remember to keep windows closed and use air purifiers if you have them."
+    },
+    {
+        "id": "23",
+        "text": "Seeing the fire maps is sobering. Both Palisades and Eaton fires have caused so much destruction. Stay strong LA! 💪"
+    },
+    {
+        "id": "24",
+        "text": "Important: N95 masks recommended for anyone who must be outside in affected areas. Regular masks won't protect from smoke! #LAFires"
+    },
+    {
+        "id": "25",
+        "text": "The outpouring of support for evacuees has been incredible. This is what community looks like! #LAStrong #CaliforniaWildfires"
+    },
+    {
+        "id": "26",
+        "text": "Red flag warnings finally expired! This should help firefighters get better control of the situation. 🚒"
+    },
+    {
+        "id": "27",
+        "text": "If you're under evacuation warning, please stay prepared and keep important documents ready. Better safe than sorry! #LASafety"
+    },
+    {
+        "id": "28",
+        "text": "The smoke is making everything look apocalyptic in LA today. Stay inside if you can everyone. #LAFires #AirQuality"
+    },
+    {
+        "id": "29",
+        "text": "Firefighters are making progress on containment lines thanks to calmer winds. Every bit of good news counts! #PalisadesFire"
+    },
+    {
+        "id": "30",
+        "text": "Remember to check official sources for evacuation updates and air quality readings. Stay informed and stay safe LA! #LAFires"
+    },
+    {
+        "id": "31",
+        "text": "ChatGPT just helped me debug a tricky coding issue in minutes. AI pair programming is the future! 🤖💻"
+    },
+    {
+        "id": "32",
+        "text": "The latest AI image generation models are mind-blowing. The quality keeps getting better every month! #AIart"
+    },
+    {
+        "id": "33",
+        "text": "Interesting debate about AI safety today. We need to think carefully about alignment as these systems get more powerful."
+    },
+    {
+        "id": "34",
+        "text": "Using AI to help with medical diagnoses is showing really promising results. Could revolutionize healthcare! #AIinMedicine"
+    },
+    {
+        "id": "35",
+        "text": "Just tried the new GPT-4 API. The reasoning capabilities are significantly improved from GPT-3.5! #AI #MachineLearning"
+    },
+    {
+        "id": "36",
+        "text": "AI is transforming scientific research. The speed of discovery in fields like protein folding is unprecedented. #AIScience"
+    },
+    {
+        "id": "37",
+        "text": "Important to remember that AI models can hallucinate. Always verify critical information from reliable sources! #AILimitations"
+    },
+    {
+        "id": "38",
+        "text": "The democratization of AI tools is amazing. Small businesses can now leverage AI capabilities that were once enterprise-only."
+    },
+    {
+        "id": "39",
+        "text": "Fascinating paper on large language models' emergent abilities. These systems keep surprising us! #AIResearch"
+    },
+    {
+        "id": "40",
+        "text": "AI ethics should be a priority as we develop more powerful systems. We need robust governance frameworks. #AIEthics"
+    },
+    {
+        "id": "41",
+        "text": "Using AI for climate modeling is helping us better understand and predict climate change patterns. #AI #ClimateAction"
+    },
+    {
+        "id": "42",
+        "text": "The new multimodal AI models are incredible - they can understand text, images, and audio together seamlessly! #AIProgress"
+    },
+    {
+        "id": "43",
+        "text": "AI-powered code completion has become indispensable in my development workflow. Huge productivity boost! #CodingWithAI"
+    },
+    {
+        "id": "44",
+        "text": "Concerned about AI's impact on jobs. We need to focus on reskilling and adaptation strategies. #AIandWork"
+    },
+    {
+        "id": "45",
+        "text": "The combination of AI and robotics is opening up amazing possibilities in manufacturing and automation. #AIRobotics"
+    },
+    {
+        "id": "46",
+        "text": "AI models are getting more efficient - same capabilities with much lower computational costs. Great for sustainability! #GreenAI"
+    },
+    {
+        "id": "47",
+        "text": "Impressive how AI is helping with language translation. Breaking down communication barriers globally! #AITranslation"
+    },
+    {
+        "id": "48",
+        "text": "The pace of AI advancement is incredible. What seemed impossible a year ago is now readily available. #AIPropgress"
+    },
+    {
+        "id": "49",
+        "text": "AI-generated music is getting surprisingly good. Interesting implications for the creative industry! #AICreativity"
+    },
+    {
+        "id": "50",
+        "text": "We need more diversity in AI development teams to ensure these systems work well for everyone. #AIInclusion"
+    },
+    {
+        "id": "51",
+        "text": "Healthcare AI is revolutionizing disease diagnosis and treatment planning. Amazing progress! #AIHealthcare"
+    },
+    {
+        "id": "52",
+        "text": "Just tried the new AI image generation model - the quality is mind-blowing! #AIArt #StableDiffusion"
+    },
+    {
+        "id": "53",
+        "text": "AI helping scientists discover new antibiotics is exactly the kind of impact we need. #AIScienceBreakthrough"
+    },
+    {
+        "id": "54",
+        "text": "The latest AI models can now understand and generate complex mathematical proofs. #AIMath"
+    },
+    {
+        "id": "55",
+        "text": "AI-powered personal assistants are becoming surprisingly good at natural conversations. #AIAssistants"
+    },
+    {
+        "id": "56",
+        "text": "Using AI to optimize energy grids could be key for sustainable future. #SmartGrid #AIEnergy"
+    },
+    {
+        "id": "57",
+        "text": "AI in education is personalizing learning experiences for students worldwide. #EdTech #AIEducation"
+    },
+    {
+        "id": "58",
+        "text": "The intersection of AI and quantum computing will open entirely new frontiers. #QuantumAI"
+    },
+    {
+        "id": "59",
+        "text": "AI-driven weather forecasting is reaching unprecedented accuracy levels. #AIWeather"
+    },
+    {
+        "id": "60",
+        "text": "Fascinating how AI is helping archaeologists discover and analyze ancient sites. #AIArchaeology"
+    },
+    {
+        "id": "61",
+        "text": "AI models are getting better at understanding context in conversations. Natural language processing is evolving fast!"
+    },
+    {
+        "id": "62",
+        "text": "The potential of AI in drug discovery is enormous. Could revolutionize how we develop new medicines. #AIPharma"
+    },
+    {
+        "id": "63",
+        "text": "AI-powered autonomous vehicles are getting safer by the day. The future of transportation is exciting! #SelfDrivingCars"
+    },
+    {
+        "id": "64",
+        "text": "Using AI to protect endangered species through better tracking and monitoring. #AIConservation"
+    },
+    {
+        "id": "65",
+        "text": "AI is transforming agriculture with precision farming techniques. Better yields, less waste! #AgTech #AI"
+    },
+    {
+        "id": "66",
+        "text": "The new AI language models are showing impressive reasoning capabilities. Getting closer to AGI? #AIResearch"
+    },
+    {
+        "id": "67",
+        "text": "AI-powered cybersecurity systems are becoming essential in protecting against sophisticated attacks. #CyberSecurity"
+    },
+    {
+        "id": "68",
+        "text": "Amazing to see AI helping with sign language translation in real-time. Technology for good! #Accessibility"
+    },
+    {
+        "id": "69",
+        "text": "AI is revolutionizing space exploration by analyzing vast amounts of telescope data. #SpaceAI"
+    },
+    {
+        "id": "70",
+        "text": "The combination of IoT and AI is making smart cities a reality. Future is here! #SmartCities #AIoT"
+    },
+    {
+        "id": "71",
+        "text": "Just tried that new ramen spot downtown. The broth is absolutely life-changing! 🍜 #FoodieLife"
+    },
+    {
+        "id": "72",
+        "text": "Can't believe the comeback in last night's basketball game! Down by 20 and still won! 🏀 #NBA #Basketball"
+    },
+    {
+        "id": "73",
+        "text": "My succulents are finally blooming! Gardening is such a rewarding hobby 🌵 #PlantParent #GardenLife"
+    },
+    {
+        "id": "74",
+        "text": "The new electric vehicles coming out this year are game-changing. Range anxiety might finally be a thing of the past! #EVs"
+    },
+    {
+        "id": "75",
+        "text": "Just finished a 10k run - new personal best! Training for the marathon is going well 🏃‍♀️ #Running #Fitness"
+    },
+    {
+        "id": "76",
+        "text": "These quantum computing breakthroughs are mind-blowing. The future of computing is getting closer! #QuantumComputing"
+    },
+    {
+        "id": "77",
+        "text": "Loving this new true crime podcast series. Can't stop listening! 🎧 #Podcasts #TrueCrime"
+    },
+    {
+        "id": "78",
+        "text": "The Northern Lights in Iceland were absolutely magical last night ✨ #Aurora #Travel"
+    },
+    {
+        "id": "79",
+        "text": "New research showing promising results for coral reef restoration projects! There's hope! 🐠 #Environment"
+    },
+    {
+        "id": "80",
+        "text": "Finally mastered that sourdough recipe after months of practice. Look at that crumb! 🍞 #Baking #Sourdough"
+    },
+    {
+        "id": "81",
+        "text": "The James Webb telescope images never cease to amaze me. The universe is incredible! 🌌 #Astronomy #Space"
+    },
+    {
+        "id": "82",
+        "text": "This new indie game is an absolute masterpiece. The art style is breathtaking! 🎮 #Gaming #IndieGames"
+    },
+    {
+        "id": "83",
+        "text": "Just adopted the sweetest rescue dog. My heart is so full! 🐕 #AdoptDontShop #RescueDogs"
+    },
+    {
+        "id": "84",
+        "text": "These renewable energy statistics are impressive. Solar adoption up 40% this year! ☀️ #CleanEnergy"
+    },
+    {
+        "id": "85",
+        "text": "The street art scene in Berlin is absolutely incredible. Every corner tells a story! 🎨 #StreetArt #Berlin"
+    },
+    {
+        "id": "86",
+        "text": "New study shows coffee might be even healthier than we thought! Time for another cup ☕️ #CoffeeLife"
+    },
+    {
+        "id": "87",
+        "text": "This virtual reality meditation app is changing my stress management game 🧘‍♀️ #Wellness #VR"
+    },
+    {
+        "id": "88",
+        "text": "The local farmers market was packed today! Love seeing people support local producers 🌽 #ShopLocal"
+    },
+    {
+        "id": "89",
+        "text": "Just witnessed a meteor shower from my backyard. Nature is spectacular! ⭐️ #Astronomy #Nature"
+    },
+    {
+        "id": "90",
+        "text": "These new sustainable fashion brands are proving style doesn't have to cost the Earth 👗 #SustainableFashion"
+    },
+    {
+        "id": "91",
+        "text": "Just discovered a hidden waterfall on today's hike. Sometimes getting lost leads to the best adventures! 🏞️ #Hiking"
+    },
+    {
+        "id": "92",
+        "text": "The new fusion reactor test results are groundbreaking! Clean energy future looking brighter 🌟 #FusionEnergy"
+    },
+    {
+        "id": "93",
+        "text": "My homegrown tomatoes finally ripened and they taste like pure summer sunshine 🍅 #GardenFresh"
+    },
+    {
+        "id": "94",
+        "text": "This vinyl collection is getting out of hand. But that crackling sound though! 🎵 #VinylCollector"
+    },
+    {
+        "id": "95",
+        "text": "New breakthrough in Alzheimer's research gives hope to millions. Science is amazing! 🧬 #MedicalResearch"
+    },
+    {
+        "id": "96",
+        "text": "The sunset in Santorini is everything they say it is and more. Bucket list moment! 🌅 #Greece #Travel"
+    },
+    {
+        "id": "97",
+        "text": "First time making kimchi from scratch. My whole kitchen smells amazing! 🥬 #FermentedFoods"
+    },
+    {
+        "id": "98",
+        "text": "These new biodegradable packaging solutions could revolutionize retail. Bye bye, plastic! ♻️ #Sustainability"
+    },
+    {
+        "id": "99",
+        "text": "Just PR'd on my deadlift! Hard work paying off at the gym 💪 #FitnessGoals #GymLife"
+    },
+    {
+        "id": "100",
+        "text": "The new season of Succession is absolutely mind-blowing. Best show on TV right now! 📺 #Succession"
+    },
+    {
+        "id": "101",
+        "text": "Learning Japanese has been challenging but just had my first conversation with a native speaker! 🗣️ #LanguageLearning"
+    },
+    {
+        "id": "102",
+        "text": "This 3D printed prosthetic arm project is changing lives in developing countries 🦾 #TechForGood"
+    },
+    {
+        "id": "103",
+        "text": "The rare book collection at this library is incredible. Some texts from the 1500s! 📚 #BookLover"
+    },
+    {
+        "id": "104",
+        "text": "First surfing lesson done! Spent more time underwater than on the board but loving it 🏄‍♂️ #SurfLife"
+    },
+    {
+        "id": "105",
+        "text": "New study shows mushrooms could be key to breaking down plastic waste naturally 🍄 #Environmental"
+    },
+    {
+        "id": "106",
+        "text": "Just tried VR chess and it's surprisingly immersive! Technology is wild 🎮 #VirtualReality"
+    },
+    {
+        "id": "107",
+        "text": "The local jazz festival was absolutely electric tonight. Live music hits different 🎷 #JazzMusic"
+    },
+    {
+        "id": "108",
+        "text": "These lab-grown diamonds are indistinguishable from mined ones. Future of jewelry? 💎 #Sustainable"
+    },
+    {
+        "id": "109",
+        "text": "My first attempt at astrophotography and caught the Milky Way! 📸 #NightSky #Photography"
+    },
+    {
+        "id": "110",
+        "text": "The new high-speed rail project will cut travel time in half! Future of transport 🚄 #Infrastructure"
+    },
+    {
+        "id": "111",
+        "text": "Just discovered my cat can open doors. Should I be worried? 😺 #CatLife #PetProblems"
+    },
+    {
+        "id": "112",
+        "text": "This vertical farming startup is revolutionizing urban agriculture. Fresh produce year-round! 🌱 #FutureOfFood"
+    },
+    {
+        "id": "113",
+        "text": "The new Mars rover images are incredible. Red planet looking more habitable! 🚀 #SpaceExploration"
+    },
+    {
+        "id": "114",
+        "text": "First time making macarons and they actually have feet! Baking win! 🍪 #BakingSuccess"
+    },
+    {
+        "id": "115",
+        "text": "These new eco-friendly buildings that generate more energy than they use are amazing 🏢 #GreenArchitecture"
+    },
+    {
+        "id": "116",
+        "text": "Just completed my first marathon! Six months of training paid off 🏃 #MarathonRunner"
+    },
+    {
+        "id": "117",
+        "text": "The augmented reality art exhibition downtown is mind-bending! Future of art? 🎨 #ARart"
+    },
+    {
+        "id": "118",
+        "text": "New research shows dolphins have even more complex language than we thought! 🐬 #MarineBiology"
+    },
+    {
+        "id": "119",
+        "text": "Finally perfected my grandmother's secret pasta sauce recipe! Family traditions live on 🍝 #Cooking"
+    },
+    {
+        "id": "120",
+        "text": "The new electric aircraft prototype completed its first test flight. Aviation revolution! ✈️ #GreenAviation"
+    },
+    {
+        "id": "121",
+        "text": "Just witnessed a sea turtle laying eggs on the beach. Nature is incredible! 🐢 #Wildlife"
+    },
+    {
+        "id": "122",
+        "text": "These smart contact lenses with built-in AR display are straight out of sci-fi! 👁️ #FutureTech"
+    },
+    {
+        "id": "123",
+        "text": "The local community garden project is bringing neighbors together. Love to see it! 🌻 #Community"
+    },
+    {
+        "id": "124",
+        "text": "First time rock climbing outdoors. The view from the top was worth the terror! 🧗‍♀️ #Climbing"
+    },
+    {
+        "id": "125",
+        "text": "New breakthrough in carbon capture technology could be game-changing for climate change 🌍 #ClimateAction"
+    },
+    {
+        "id": "126",
+        "text": "Just discovered a new podcast about ancient civilizations. History is wild! 🏺 #History"
+    },
+    {
+        "id": "127",
+        "text": "The robotics competition at the high school today was inspiring. Future engineers! 🤖 #STEM"
+    },
+    {
+        "id": "128",
+        "text": "Finally learned how to change a tire today. Adult life achievement unlocked! 🔧 #LifeSkills"
+    },
+    {
+        "id": "129",
+        "text": "The new digital art I created using AI collaboration tools is mind-bending 🎨 #AIart #DigitalArt"
+    },
+    {
+        "id": "130",
+        "text": "Just tried cricket protein bars. Sustainable future of food might not be so bad! 🦗 #FutureFoods"
+    },
+    {
+        "id": "131",
+        "text": "The traditional tea ceremony I attended in Kyoto was so peaceful. Living in the moment 🍵 #JapaneseCulture"
+    },
+    {
+        "id": "132",
+        "text": "New study shows forest bathing reduces stress levels by 60%. Nature is medicine! 🌲 #Wellness"
+    },
+    {
+        "id": "133",
+        "text": "First time making kombucha and it's actually fizzy! DIY fermentation success 🍾 #Fermentation"
+    },
+    {
+        "id": "134",
+        "text": "The new underwater photography drone captured amazing reef footage today 🐠 #MarineLife"
+    },
+    {
+        "id": "135",
+        "text": "Just finished building my first mechanical keyboard. The clicking is so satisfying! ⌨️ #MechKeys"
+    },
+    {
+        "id": "136",
+        "text": "The zero-waste store that opened downtown is amazing. Bringing my own containers from now on! 🌱 #ZeroWaste"
+    },
+    {
+        "id": "137",
+        "text": "These new solar panels that work at night could revolutionize renewable energy! ☀️ #SolarPower"
+    },
+    {
+        "id": "138",
+        "text": "First pottery class and made something that actually looks like a bowl! 🏺 #Ceramics"
+    },
+    {
+        "id": "139",
+        "text": "The new urban beekeeping project is helping save local pollinators 🐝 #SaveTheBees"
+    },
+    {
+        "id": "140",
+        "text": "Just discovered my DNA results. I'm way more diverse than I thought! 🧬 #Ancestry"
+    },
+    {
+        "id": "141",
+        "text": "Just discovered my houseplant has grown a whole new leaf overnight! Plant parent pride 🌿 #PlantProgress"
+    },
+    {
+        "id": "142",
+        "text": "The new holographic concert technology is incredible. Felt like the artist was really there! 🎤 #FutureTech"
+    },
+    {
+        "id": "143",
+        "text": "First time making sushi at home. It's not pretty but tastes amazing! 🍱 #HomeCooking"
+    },
+    {
+        "id": "144",
+        "text": "The new brain-computer interface demos are mind-blowing. Future of accessibility! 🧠 #Neuroscience"
+    },
+    {
+        "id": "145",
+        "text": "Just restored my grandfather's vintage motorcycle. She purrs like a kitten now! 🏍️ #Restoration"
+    },
+    {
+        "id": "146",
+        "text": "Spotted a rare bird species in my backyard! Citizen science is so rewarding 🦜 #Birdwatching"
+    },
+    {
+        "id": "147",
+        "text": "The new underground hydroponic farm in the city is producing lettuce for local restaurants 🥬 #UrbanFarming"
+    },
+    {
+        "id": "148",
+        "text": "Finally learned to juggle! Only dropped everything 50 times first 🤹 #NewSkills"
+    },
+    {
+        "id": "149",
+        "text": "The local recycling plant's new AI sorting system is 99.9% accurate! ♻️ #Innovation"
+    },
+    {
+        "id": "150",
+        "text": "Just finished my first oil painting class. Bob Ross made it look way easier! 🎨 #ArtStudent"
+    },
+    {
+        "id": "151",
+        "text": "The new satellite internet speeds in rural areas are game-changing! 📡 #Connectivity"
+    },
+    {
+        "id": "152",
+        "text": "Made my first batch of homemade pickles. The waiting is the hardest part! 🥒 #Pickling"
+    },
+    {
+        "id": "153",
+        "text": "The autonomous delivery robots on campus are so cute! Future is here! 🤖 #Robotics"
+    },
+    {
+        "id": "154",
+        "text": "Just completed a 30-day meditation challenge. My mind feels so clear! 🧘‍♀️ #Mindfulness"
+    },
+    {
+        "id": "155",
+        "text": "The new paper battery technology could revolutionize portable electronics! 🔋 #Innovation"
+    },
+    {
+        "id": "156",
+        "text": "First time snowboarding and only fell 100 times! Progress! 🏂 #WinterSports"
+    },
+    {
+        "id": "157",
+        "text": "The bioluminescent algae at the beach last night was magical ✨ #NatureIsMagic"
+    },
+    {
+        "id": "158",
+        "text": "Just built my first drone! Can't wait to try aerial photography 📸 #DIY"
+    },
+    {
+        "id": "159",
+        "text": "The new lab-grown coffee tastes identical to the real thing! Future of sustainable coffee? ☕️ #FoodTech"
+    },
+    {
+        "id": "160",
+        "text": "Started learning sign language online. Communication has no barriers! 🤟 #ASL"
+    },
+    {
+        "id": "161",
+        "text": "The new water purification system using graphene is revolutionary! 💧 #CleanWater"
+    },
+    {
+        "id": "162",
+        "text": "Just finished my first woodworking project. Only one minor injury! 🪚 #DIYWoodworking"
+    },
+    {
+        "id": "163",
+        "text": "The virtual museum tours in VR are incredibly detailed. Future of education! 🏛️ #EdTech"
+    },
+    {
+        "id": "164",
+        "text": "Made my first batch of homemade hot sauce. My tongue may never recover! 🌶️ #Spicy"
+    },
+    {
+        "id": "165",
+        "text": "The new air taxi prototypes are actually happening! Flying cars are real! ✈️ #UrbanMobility"
+    },
+    {
+        "id": "166",
+        "text": "Just learned to fold an origami crane in one try! Patience pays off 📄 #Origami"
+    },
+    {
+        "id": "167",
+        "text": "The new coral restoration robots are planting reef systems autonomously! 🐠 #OceanConservation"
+    },
+    {
+        "id": "168",
+        "text": "First attempt at needle felting - made a slightly wonky penguin! 🧶 #Crafting"
+    },
+    {
+        "id": "169",
+        "text": "The smart irrigation systems saving 70% water in agriculture are amazing! 💦 #AgTech"
+    },
+    {
+        "id": "170",
+        "text": "Just discovered the joy of foraging! These wild mushrooms are delicious 🍄 #WildFood"
+    },
+    {
+        "id": "171",
+        "text": "The new biodegradable electronics could solve our e-waste problem! ♻️ #GreenTech"
+    },
+    {
+        "id": "172",
+        "text": "Started learning to play the ukulele. My neighbors are very patient! 🎸 #MusicStudent"
+    },
+    {
+        "id": "173",
+        "text": "The new vertical wind turbines for urban environments are genius! 🌪️ #RenewableEnergy"
+    },
+    {
+        "id": "174",
+        "text": "First time making cheese at home. The process is fascinating! 🧀 #Cheesemaking"
+    },
+    {
+        "id": "175",
+        "text": "The AI-powered wildlife tracking system is helping prevent poaching! 🦏 #Conservation"
+    },
+    {
+        "id": "176",
+        "text": "Just learned to code my first website! Hello World! 💻 #CodingNewbie"
+    },
+    {
+        "id": "177",
+        "text": "The new wave energy converters are powering entire coastal communities! 🌊 #CleanEnergy"
+    },
+    {
+        "id": "178",
+        "text": "Started keeping bees in my backyard. Save the pollinators! 🐝 #Beekeeping"
+    },
+    {
+        "id": "179",
+        "text": "The smart traffic lights reducing congestion by 40% are amazing! 🚦 #SmartCity"
+    },
+    {
+        "id": "180",
+        "text": "First time making traditional sourdough bread from scratch! 🍞 #Breadmaking"
+    },
+    {
+        "id": "181",
+        "text": "The new carbon-negative concrete could transform construction! 🏗️ #GreenBuilding"
+    },
+    {
+        "id": "182",
+        "text": "Just completed my first stained glass project! So many band-aids later 🎨 #GlassArt"
+    },
+    {
+        "id": "183",
+        "text": "The new plant-based leather made from mushrooms is incredible! 🍄 #SustainableFashion"
+    },
+    {
+        "id": "184",
+        "text": "Started learning calligraphy. My handwriting is finally legible! ✒️ #Calligraphy"
+    },
+    {
+        "id": "185",
+        "text": "The new micro-nuclear reactors could power remote communities safely! ⚡ #CleanEnergy"
+    },
+    {
+        "id": "186",
+        "text": "First time making homemade ice cream. Never buying store-bought again! 🍦 #Desserts"
+    },
+    {
+        "id": "187",
+        "text": "The AI helping to predict and prevent forest fires is saving lives! 🌲 #FirePrevention"
+    },
+    {
+        "id": "188",
+        "text": "Just built my first terrarium! Tiny ecosystem in a jar 🌿 #Terrariums"
+    },
+    {
+        "id": "189",
+        "text": "The new transparent solar panels on windows are revolutionary! ☀️ #SolarPower"
+    },
+    {
+        "id": "190",
+        "text": "Started learning to throw pottery on a wheel. It's mesmerizing! 🏺 #PotteryLife"
+    }
+]
