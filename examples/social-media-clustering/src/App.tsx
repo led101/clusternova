@@ -348,13 +348,13 @@ function App() {
           onClick={() => setIsModalOpen(true)}
           className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
         >
-          Manage Tweets ({tweets.length})
+          Edit Tweets ({tweets.length})
         </button>
 
         <button
           onClick={handleCluster}
           disabled={isLoading || !apiKey || tweets.length < 2}
-          className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-300"
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-blue-300"
         >
           {isLoading ? "Clustering..." : "Cluster Tweets"}
         </button>
@@ -430,13 +430,13 @@ function App() {
         ) : null}
       </div>
 
-      {/* Tweet Management Modal */}
-      <TweetModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        tweets={tweets}
-        setTweets={setTweets}
-      />
+      {isModalOpen && (
+        <TweetModal
+          onClose={() => setIsModalOpen(false)}
+          tweets={tweets}
+          setTweets={setTweets}
+        />
+      )}
     </div>
   );
 }
