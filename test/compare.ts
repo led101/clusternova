@@ -1,5 +1,6 @@
 import { HDBSCAN } from "../src/index";
 
+// To run: npx ts-node compare.ts
 interface Point {
   id: string;
   vector: number[];
@@ -33,8 +34,14 @@ async function compareWithScikit(
 
     // Compare results
     console.log("TypeScript Implementation:");
-    console.log("Clusters:", tsResults.clusters);
-    console.log("Outliers:", tsResults.outliers);
+    console.log(
+      "Clusters:",
+      tsResults.clusters.map((cluster) => cluster.map((p) => p.id))
+    );
+    console.log(
+      "Outliers:",
+      tsResults.outliers.map((p) => p.id)
+    );
 
     console.log("\nScikit-learn Implementation:");
     console.log("Clusters:", scikitResults.clusters);
@@ -47,9 +54,9 @@ async function compareWithScikit(
     // Create maps of point assignments for both implementations
     const tsAssignments = new Map<string, number>();
     tsResults.clusters.forEach((cluster, i) => {
-      cluster.forEach((id) => tsAssignments.set(id, i));
+      cluster.forEach((point) => tsAssignments.set(point.id, i));
     });
-    tsResults.outliers.forEach((id) => tsAssignments.set(id, -1));
+    tsResults.outliers.forEach((point) => tsAssignments.set(point.id, -1));
 
     const scikitAssignments = new Map<string, number>();
     scikitResults.clusters.forEach((cluster: any, i: number) => {
@@ -70,7 +77,9 @@ async function compareWithScikit(
       } else if (tsCluster !== -1 && scikitCluster !== -1) {
         // Check if points that are clustered together in one implementation
         // are also clustered together in the other
-        const tsClusterPoints = tsResults.clusters[tsCluster!];
+        const tsClusterPoints = tsResults.clusters[tsCluster!].map(
+          (point) => point.id
+        );
         const scikitClusterPoints = scikitResults.clusters[scikitCluster!];
 
         const inSameCluster = tsClusterPoints.every((id) =>

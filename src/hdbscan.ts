@@ -8,6 +8,7 @@ class HDBSCAN {
   private mrg: Map<string, Map<string, number>>; // Mutual reachability graph
   private mstEdges: { from: string; to: string; weight: number }[]; // mutual reachability graph as an adjacency list
   private distanceFunction: DistanceFunction;
+  private idToVector: Map<string, number[]>; // <-- NEW lookup map
 
   constructor(
     X: {
@@ -24,6 +25,10 @@ class HDBSCAN {
     this.mrg = new Map();
     this.mstEdges = [];
     this.distanceFunction = distanceFunction ?? HDBSCAN.cosine;
+    this.idToVector = new Map();
+    this.X.forEach((p) => {
+      this.idToVector.set(p.id, p.vector);
+    });
   }
 
   run() {
@@ -36,11 +41,29 @@ class HDBSCAN {
       this._constructMRG();
       this._computeMST();
       const { clusters, outliers } = this._extractHDBSCANHierarchy();
-      return { clusters, outliers };
+
+      // Transform IDs into objects with {id, vector}
+      const clustersWithVectors = clusters.map((cluster) =>
+        cluster.map((id) => ({
+          id,
+          vector: this.idToVector.get(id)!,
+        }))
+      );
+
+      const outliersWithVectors = outliers.map((id) => ({
+        id,
+        vector: this.idToVector.get(id)!,
+      }));
+
+      return { clusters: clustersWithVectors, outliers: outliersWithVectors };
     } catch (e) {
       console.error("Error in HDBSCAN:", e);
       // return all the points as outliers
-      return { clusters: [], outliers: this.X.map((point) => point.id) };
+      const outliersWithVectors = this.X.map((p) => ({
+        id: p.id,
+        vector: p.vector,
+      }));
+      return { clusters: [], outliers: outliersWithVectors };
     }
   }
 
