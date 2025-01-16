@@ -1,23 +1,26 @@
 export type DistanceFunction = (pointA: number[], pointB: number[]) => number;
 
-class HDBSCAN {
-  private X: { id: string; vector: number[] }[]; // The dataset of points
+/**
+ * HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) implementation
+ * @template T - Type of data points, must include 'id' and 'vector' properties
+ */
+class HDBSCAN<T extends { id: string; vector: number[] }> {
+  private X: T[];
   private allNearestNeighbors: Map<string, Map<string, number>>; // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
   private mpts: number; // The minimum points to define a core point
   private coreDistances: Map<string, number>; // Map: id to core distances
   private mrg: Map<string, Map<string, number>>; // Mutual reachability graph
   private mstEdges: { from: string; to: string; weight: number }[]; // mutual reachability graph as an adjacency list
   private distanceFunction: DistanceFunction;
-  private idToVector: Map<string, number[]>; // <-- NEW lookup map
+  private idToObject: Map<string, T>;
 
-  constructor(
-    X: {
-      id: string;
-      vector: number[];
-    }[],
-    mpts: number,
-    distanceFunction?: DistanceFunction
-  ) {
+  /**
+   * Creates a new HDBSCAN instance
+   * @param X - Array of data points to cluster
+   * @param mpts - Minimum points required to form a dense region (minimum cluster size)
+   * @param distanceFunction - Optional function to calculate distance between points (defaults to cosine distance)
+   */
+  constructor(X: T[], mpts: number, distanceFunction?: DistanceFunction) {
     this.X = X;
     this.allNearestNeighbors = new Map();
     this.mpts = mpts;
@@ -25,13 +28,20 @@ class HDBSCAN {
     this.mrg = new Map();
     this.mstEdges = [];
     this.distanceFunction = distanceFunction ?? cosine;
-    this.idToVector = new Map();
+    this.idToObject = new Map();
     this.X.forEach((p) => {
-      this.idToVector.set(p.id, p.vector);
+      this.idToObject.set(p.id, p);
     });
   }
 
-  run() {
+  /**
+   * Runs the HDBSCAN clustering algorithm
+   * @returns Object containing clusters and outliers
+   * @returns {T[][]} clusters - Array of clusters, where each cluster is an array of data points
+   * @returns {T[]} outliers - Array of data points that don't belong to any cluster
+   * @throws {Error} If an error occurs during clustering
+   */
+  run(): { clusters: T[][]; outliers: T[] } {
     if (this.X.length === 0) {
       return { clusters: [], outliers: [] };
     }
@@ -42,28 +52,23 @@ class HDBSCAN {
       this._computeMST();
       const { clusters, outliers } = this._extractHDBSCANHierarchy();
 
-      // Transform IDs into objects with {id, vector}
-      const clustersWithVectors = clusters.map((cluster) =>
-        cluster.map((id) => ({
-          id,
-          vector: this.idToVector.get(id)!,
-        }))
+      // Transform IDs into original objects
+      const clustersWithOriginalObjs = clusters.map((cluster) =>
+        cluster.map((id) => this.idToObject.get(id)!)
       );
 
-      const outliersWithVectors = outliers.map((id) => ({
-        id,
-        vector: this.idToVector.get(id)!,
-      }));
+      const outliersWithOriginalObjs = outliers.map(
+        (id) => this.idToObject.get(id)!
+      );
 
-      return { clusters: clustersWithVectors, outliers: outliersWithVectors };
+      return {
+        clusters: clustersWithOriginalObjs,
+        outliers: outliersWithOriginalObjs,
+      };
     } catch (e) {
       console.error("Error in HDBSCAN:", e);
-      // return all the points as outliers
-      const outliersWithVectors = this.X.map((p) => ({
-        id: p.id,
-        vector: p.vector,
-      }));
-      return { clusters: [], outliers: outliersWithVectors };
+      //rethrow
+      throw e;
     }
   }
 
@@ -457,6 +462,58 @@ class PriorityQueue<T> {
   private _swap(i: number, j: number): void {
     [this._heap[i], this._heap[j]] = [this._heap[j], this._heap[i]];
   }
+}
+
+/**
+ * Finds the n most central elements in a cluster of vectors
+ * @template T Type of cluster elements extending {id: string; vector: number[]}
+ * @param cluster Array of objects containing at least {id, vector} properties
+ * @param n Number of central elements to return (must be >= 1)
+ * @param distanceFunction Optional distance function (defaults to cosine)
+ * @returns Array of input objects with additional distance property, representing the n most central elements, sorted by distance from centroid
+ * @throws Error if n < 1 or cluster is empty
+ */
+export function findCentralElements<T extends { id: string; vector: number[] }>(
+  cluster: T[],
+  n: number,
+  distanceFunction: DistanceFunction = cosine
+): (T & { distance: number })[] {
+  if (n < 1) {
+    throw new Error("Number of central elements must be at least 1");
+  }
+  if (cluster.length === 0) {
+    throw new Error("Cannot find central elements of empty cluster");
+  }
+
+  if (cluster.length < n) {
+    throw new Error("Requested more central elements than cluster size");
+  }
+
+  const vectors = cluster.map((p) => p.vector);
+  const dimensions = vectors[0].length;
+  const centroid: number[] = new Array(dimensions).fill(0);
+
+  for (const vector of vectors) {
+    if (vector.length !== dimensions) {
+      throw new Error("All vectors must have the same dimensions");
+    }
+    for (let i = 0; i < dimensions; i++) {
+      centroid[i] += vector[i];
+    }
+  }
+
+  for (let i = 0; i < dimensions; i++) {
+    centroid[i] /= vectors.length;
+  }
+
+  // Find n closest points to centroid
+  return cluster
+    .map((point) => ({
+      ...point,
+      distance: distanceFunction(point.vector, centroid),
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, n);
 }
 
 //extended union-find data structure

@@ -1,6 +1,6 @@
 {
   "name": "clusternova",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "HDBSCAN clustering algorithm implementation in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,9 +17,12 @@
   },
   "keywords": [
     "hdbscan",
+    "dbscan",
     "clustering",
     "machine-learning",
+    "javascript",
     "typescript",
+    "nodejs",
     "data-science",
     "ml",
     "ai"
