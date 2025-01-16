@@ -2,9 +2,9 @@
 
 **Discover Hidden Patterns in Your Data**
 
-Just drop millions of social media posts into your application and instantly surface trending topics. Feed in your support tickets and watch as related issues cluster together.
+Just drop millions of social media posts and instantly surface trending topics. Feed in your support tickets and instantly have related issues be clustered together.
 
-This TypeScript implementation brings industrial-strength clustering to your JavaScript ecosystem, whether you're running in Node.js (or another backend JS runtime) or directly in the browser. Built for real-world applications:
+This TypeScript implementation easily brings clustering to your JavaScript ecosystem, whether you're running in Node.js (or another backend JS runtime) or directly in the browser. Built for real-world applications:
 
 - 📱 **Social Media Intelligence**: Surface trending topics from millions of posts in real-time
 - 🎯 **Customer Insights**: Transform raw feedback into actionable patterns
