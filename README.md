@@ -56,6 +56,15 @@ const data = [
 
 const hdbscan = new HDBSCAN(data, 5, HDBSCAN.cosine); // minimum points = 5, cosine distance metric (you could also pass in HDBSCAN.manhattan, HDBSCAN.euclidean, or your own distance metric)
 const { clusters, outliers } = hdbscan.run();
+
+// Example output:
+// {
+//   clusters: [
+//     ['1', '2', '5'],  // First cluster
+//     ['3', '4', '6'],  // Second cluster
+//   ],
+//   outliers: ['7', '8'] // Points that don't belong to any cluster
+// }
 ```
 
 ## Example Use Cases
