@@ -2,7 +2,7 @@
 
 ### Simple data clustering library in TS
 
-![Clusternova Image](https://raw.githubusercontent.com/led101/clusternova/assets/clusternova.png)
+![Clusternova Image](https://raw.githubusercontent.com/led101/clusternova/main/assets/clusternova.png)
 
 **Discover Hidden Patterns in Your Data**
 
