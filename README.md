@@ -47,15 +47,13 @@ npm install clusternova
 ## Usage
 
 ```typescript
-import HDBSCAN, { findCentroid, findCentralElements, cosine } from "clusternova";
+import HDBSCAN, { findCentralElements, cosine, VectorPoint } from "clusternova";
 // manhattan, euclidean are also available imports
 
-// Define your own data type with required id and vector fields
-interface MyDataPoint {
-  id: string;
-  vector: number[];
-  title?: string;        // Optional fields
-  timestamp?: Date;      // that you might need
+// Extend VectorPoint with your additional fields
+interface MyDataPoint extends VectorPoint {
+  title: string;        // Optional fields
+  timestamp: Date;      // that you might need
 }
 
 const data: MyDataPoint[] = [
