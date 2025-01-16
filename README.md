@@ -2,8 +2,6 @@
 
 ### Simple data clustering library in TS
 
-![Clusternova Image](https://raw.githubusercontent.com/led101/clusternova/main/assets/clusternova.png)
-
 **Discover Hidden Patterns in Your Data**
 
 Drop millions of recent social media posts and instantly surface trending topics. Feed in your support tickets and instantly have related issues be clustered together.
