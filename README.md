@@ -44,15 +44,17 @@ npm install clusternova
 
 ## Usage
 
-import { HDBSCAN } from 'clusternova';
+```typescript
+import { HDBSCAN } from "clusternova";
 const data = [
-{ id: '1', vector: [1, 2, 3] },
-{ id: '2', vector: [4, 5, 6] },
-// ... more points
+  { id: "1", vector: [1, 2, 3] },
+  { id: "2", vector: [4, 5, 6] },
+  // ... more points
 ];
 
 const hdbscan = new HDBSCAN(data, 5, HDBSCAN.cosine); // minimum points = 5, cosine distance metric (you could also pass in HDBSCAN.manhattan, HDBSCAN.euclidean, or your own distance metric)
 const { clusters, outliers } = hdbscan.run();
+```
 
 ## Example Use Cases
 
