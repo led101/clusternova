@@ -54,7 +54,8 @@ const data = [
   // ... more points
 ];
 
-const hdbscan = new HDBSCAN(data, 5, HDBSCAN.cosine); // minimum points = 5, cosine distance metric (you could also pass in HDBSCAN.manhattan, HDBSCAN.euclidean, or your own distance metric)
+const hdbscan = new HDBSCAN(data, 5, HDBSCAN.cosine); // minimum points = 5, cosine distance metric
+// You could pass in HDBSCAN.cosine, HDBSCAN.manhattan, HDBSCAN.euclidean, or your own distance metric
 const { clusters, outliers } = hdbscan.run();
 
 // Example output:

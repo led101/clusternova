@@ -9,8 +9,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,10 @@
     "hdbscan",
     "clustering",
     "machine-learning",
-    "typescript"
+    "typescript",
+    "data-science",
+    "ml",
+    "ai"
   ],
   "author": "Kevin Ma",
   "license": "MIT",
