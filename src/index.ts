@@ -5,4 +5,4 @@ export {
   manhattan,
   findCentralElements,
 } from "./hdbscan";
-export type { DistanceFunction } from "./hdbscan";
+export type { DistanceFunction, VectorPoint } from "./hdbscan";
