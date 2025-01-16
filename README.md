@@ -40,7 +40,9 @@ Built from scratch in TypeScript in a single file with zero dependencies, this T
 
 ## Setup
 
+```bash
 npm install clusternova
+```
 
 ## Usage
 
