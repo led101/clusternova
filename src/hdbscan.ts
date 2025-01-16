@@ -488,10 +488,6 @@ export function findCentralElements<T extends VectorPoint>(
     throw new Error("Cannot find central elements of empty cluster");
   }
 
-  if (cluster.length < n) {
-    throw new Error("Requested more central elements than cluster size");
-  }
-
   const vectors = cluster.map((p) => p.vector);
   const dimensions = vectors[0].length;
   const centroid: number[] = new Array(dimensions).fill(0);
