@@ -47,26 +47,76 @@ npm install clusternova
 ## Usage
 
 ```typescript
-import { HDBSCAN } from "clusternova";
-const data = [
-  { id: "1", vector: [1, 2, 3] },
-  { id: "2", vector: [4, 5, 6] },
+import HDBSCAN, { findCentroid, findCentralElements, cosine } from "clusternova";
+// manhattan, euclidean are also available imports
+
+// Define your own data type with required id and vector fields
+interface MyDataPoint {
+  id: string;
+  vector: number[];
+  title?: string;        // Optional fields
+  timestamp?: Date;      // that you might need
+}
+
+const data: MyDataPoint[] = [
+  {
+    id: "1",
+    vector: [1, 2, 3],
+    title: "First point",
+    timestamp: new Date()
+  },
+  {
+    id: "2",
+    vector: [4, 5, 6],
+    title: "Second point",
+    timestamp: new Date()
+  }
   // ... more points
 ];
 
-const hdbscan = new HDBSCAN(data, 5, HDBSCAN.cosine); // minimum points = 5, cosine distance metric
-// You could pass in HDBSCAN.cosine, HDBSCAN.manhattan, HDBSCAN.euclidean, or your own distance metric
+const hdbscan = new HDBSCAN(data, 3, cosine); // minimum points = 3, cosine distance metric
 const { clusters, outliers } = hdbscan.run();
+// Types of returned data:
+// clusters: MyDataPoint[][] - Array of clusters, each containing array of your data points
+// outliers: MyDataPoint[] - Array of outlier points
 
 // Example output:
-// {
-//   clusters: [
-//     ['1', '2', '5'],  // First cluster
-//     ['3', '4', '6'],  // Second cluster
-//   ],
-//   outliers: ['7', '8'] // Points that don't belong to any cluster
-// }
+{
+    clusters: [
+    [
+        { id: "1", vector: [1, 2, 3], title: "First point", timestamp: "2024-01-01..." },
+        { id: "2", vector: [4, 5, 6], title: "Second point", timestamp: "2024-01-01..." }
+    ],
+    // ... more clusters
+    ],
+    outliers: [
+    { id: "7", vector: [7, 8, 9], title: "Outlier point", timestamp: "2024-01-01..." }
+    // ... more outliers
+    ]
+}
+
+// Find central elements of each cluster - returns array of elements with distance field (distance from the center of the cluster)
+clusters.forEach(cluster => {
+  const centralElements = findCentralElements(cluster, 3, cosine);
+  // Returns: (MyDataPoint & { distance: number })[]
+  // Example:
+  // [
+  //   { id: "1", vector: [1,2,3], title: "First point", distance: 0.2 },
+  //   { id: "2", vector: [4,5,6], title: "Second point", distance: 0.3 }
+  // ]
+});
+
 ```
+
+## Example Projects
+
+We have included an examples directory with web apps that demonstrate how to use Clusternova in real-world scenarios. One of them, social-media-clustering, is deployed and available for you to try (bring your own API key):
+
+Social Media Clustering Demo: https://astonishing-donut-b3686d.netlify.app
+
+This demo showcases clustering of the text embeddings of media posts (tweets) and summarizing each cluster using GPT3.5.
+
+You can also clone the repo and run it yourself.
 
 ## Example Use Cases
 
