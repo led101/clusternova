@@ -30,7 +30,13 @@ HDBSCAN offers several advantages over traditional clustering algorithms:
 
 ## Performance
 
-This TypeScript implementation includes several optimizations, but not all that are used in the Python library. In my limited testing, it's shown comparable or better performance than the Python implementation.
+Built from scratch in TypeScript in a single file with zero dependencies, this TypeScript implementation includes several optimizations, but not all the optimizations used in the HDBSCAN Python library. In my personal testing, it's shown comparable or better performance than the Python implementation.
+
+- ✨ Zero dependencies
+- 🚀 Pure TypeScript implementation
+- ⚡️ Optimized for JS runtimes
+- 🔒 Type-safe API
+- 📦 Small bundle size
 
 ## Setup
 
