@@ -1,2 +1,2 @@
-export { default as HDBSCAN } from "./hdbscan";
+export { default, cosine, euclidean, manhattan } from "./hdbscan";
 export type { DistanceFunction } from "./hdbscan";

@@ -24,7 +24,7 @@ class HDBSCAN {
     this.coreDistances = new Map();
     this.mrg = new Map();
     this.mstEdges = [];
-    this.distanceFunction = distanceFunction ?? HDBSCAN.cosine;
+    this.distanceFunction = distanceFunction ?? cosine;
     this.idToVector = new Map();
     this.X.forEach((p) => {
       this.idToVector.set(p.id, p.vector);
@@ -65,48 +65,6 @@ class HDBSCAN {
       }));
       return { clusters: [], outliers: outliersWithVectors };
     }
-  }
-
-  static euclidean(pointA: number[], pointB: number[]): number {
-    if (pointA.length !== pointB.length) {
-      throw new Error("unequal dimension in input data");
-    }
-    let sum = 0;
-    for (let i = 0; i < pointA.length; i++) {
-      const diff = pointA[i] - pointB[i];
-      sum += diff * diff;
-    }
-    return Math.sqrt(sum);
-  }
-
-  static manhattan(pointA: number[], pointB: number[]): number {
-    if (pointA.length !== pointB.length) {
-      throw new Error("unequal dimension in input data");
-    }
-    let sum = 0;
-    for (let i = 0; i < pointA.length; i++) {
-      sum += Math.abs(pointA[i] - pointB[i]);
-    }
-    return sum;
-  }
-
-  static cosine(pointA: number[], pointB: number[]): number {
-    if (pointA.length !== pointB.length) {
-      throw new Error("unequal dimension in input data");
-    }
-    let dotProduct = 0.0;
-    let normA = 0.0;
-    let normB = 0.0;
-    for (let i = 0; i < pointA.length; i++) {
-      dotProduct += pointA[i] * pointB[i];
-      normA += pointA[i] * pointA[i];
-      normB += pointB[i] * pointB[i];
-    }
-    if (normA === 0 || normB === 0) {
-      return 1;
-    }
-    const similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-    return 1 - similarity;
   }
 
   private _computeAllNearestNeighbors() {
@@ -386,6 +344,48 @@ class HDBSCAN {
 
     return { clusters, outliers };
   }
+}
+
+export function euclidean(pointA: number[], pointB: number[]): number {
+  if (pointA.length !== pointB.length) {
+    throw new Error("unequal dimension in input data");
+  }
+  let sum = 0;
+  for (let i = 0; i < pointA.length; i++) {
+    const diff = pointA[i] - pointB[i];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
+}
+
+export function manhattan(pointA: number[], pointB: number[]): number {
+  if (pointA.length !== pointB.length) {
+    throw new Error("unequal dimension in input data");
+  }
+  let sum = 0;
+  for (let i = 0; i < pointA.length; i++) {
+    sum += Math.abs(pointA[i] - pointB[i]);
+  }
+  return sum;
+}
+
+export function cosine(pointA: number[], pointB: number[]): number {
+  if (pointA.length !== pointB.length) {
+    throw new Error("unequal dimension in input data");
+  }
+  let dotProduct = 0.0;
+  let normA = 0.0;
+  let normB = 0.0;
+  for (let i = 0; i < pointA.length; i++) {
+    dotProduct += pointA[i] * pointB[i];
+    normA += pointA[i] * pointA[i];
+    normB += pointB[i] * pointB[i];
+  }
+  if (normA === 0 || normB === 0) {
+    return 1;
+  }
+  const similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+  return 1 - similarity;
 }
 
 class PriorityQueue<T> {

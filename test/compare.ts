@@ -1,4 +1,9 @@
-import { HDBSCAN } from "../src/index";
+import HDBSCAN, {
+  DistanceFunction,
+  cosine,
+  manhattan,
+  euclidean,
+} from "../src/index";
 
 // To run: npx ts-node compare.ts
 interface Point {
@@ -13,8 +18,23 @@ async function compareWithScikit(
   minPoints: number,
   distanceMetric: DistanceMetric
 ) {
+  let distanceFunc: DistanceFunction | null = null;
+
+  switch (distanceMetric) {
+    case "cosine":
+      distanceFunc = cosine;
+      break;
+    case "manhattan":
+      distanceFunc = manhattan;
+      break;
+    case "euclidean":
+      distanceFunc = euclidean;
+      break;
+    default:
+      throw new Error(`Unsupported distance metric: ${distanceMetric}`);
+  }
   // Run your implementation
-  const hdbscan = new HDBSCAN(points, minPoints, HDBSCAN[distanceMetric]);
+  const hdbscan = new HDBSCAN(points, minPoints, distanceFunc);
   const tsResults = hdbscan.run();
 
   // Run scikit-learn implementation
