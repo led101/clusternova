@@ -1,10 +1,13 @@
 export type DistanceFunction = (pointA: number[], pointB: number[]) => number;
-
+export interface VectorPoint {
+  id: string;
+  vector: number[];
+}
 /**
  * HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) implementation
  * @template T - Type of data points, must include 'id' and 'vector' properties
  */
-class HDBSCAN<T extends { id: string; vector: number[] }> {
+class HDBSCAN<T extends VectorPoint> {
   private X: T[];
   private allNearestNeighbors: Map<string, Map<string, number>>; // adjacency list map(id_from, Map(id_To, weight)) these are the raw edge distances, not the mutual reachability distance
   private mpts: number; // The minimum points to define a core point
@@ -473,7 +476,7 @@ class PriorityQueue<T> {
  * @returns Array of input objects with additional distance property, representing the n most central elements, sorted by distance from centroid
  * @throws Error if n < 1 or cluster is empty
  */
-export function findCentralElements<T extends { id: string; vector: number[] }>(
+export function findCentralElements<T extends VectorPoint>(
   cluster: T[],
   n: number,
   distanceFunction: DistanceFunction = cosine
