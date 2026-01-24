@@ -1,4 +1,4 @@
-# Clusternova
+# Clusternova - HDBSCAN in Typescript
 
 HDBSCAN clustering in TypeScript. Zero dependencies.
 
